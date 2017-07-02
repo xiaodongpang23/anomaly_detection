@@ -125,10 +125,12 @@ def main(argv):
 					f.write('{{"event_type":"{0:s}", "timestamp":"{1:s}", "id": "{2:.0f}", "amount": "{3:.2f}", "mean": "{4:.2f}", "sd": "{5:.2f}"}}\n'.format(event_type, timestamp, userid, amount, mean, sd))
 		# update social network
 		if event_type == 'befriend':
+			df_friend=df_friend.append(datai[['event_type','id1','id2','timestamp']])
 			id1 = datai['id1']
 			id2 = datai['id2']
 			G.add_edge(id1,id2)
 		if event_type == 'unfriend':
+			df_friend=df_friend.append(datai[['event_type','id1','id2','timestamp']])
 			id1 = datai['id1']
 			id2 = datai['id2']
 			if G.has_edge(id1,id2):
