@@ -93,17 +93,15 @@ G.add_nodes_from(idlist)
 # In[12]:
 
 def Add_edges(data):
-    for i in range(0, len(data)):
-        datai = data.iloc[i]
-        id10 = datai['id1']
-        id20 = datai['id2']
-        event_type0 = datai['event_type']
+    for row in data.itertuples():
+        id10 = row.id1
+        id20 = row.id2
+        event_type0 = row.event_type
         if event_type0 == 'befriend':
             G.add_edge(id10,id20)
         if event_type0 == 'unfriend':
             if G.has_edge(id10,id20):
                 G.remove_edge(id10,id20)  
-                            
 
 
 # In[13]:
@@ -176,29 +174,29 @@ f = open(flaggedfile, 'w')
 # In[21]:
 
 # Determine whether a purchase is anomalous; update purchase history; update social network
-for i in range(0, len(df_stream)):
-    datai = df_stream.iloc[i]
-    event_type = datai['event_type']
+index = list(['event_type','id','timestamp','amount'])
+for row in df_stream.itertuples():
+    event_type = row.event_type
     if event_type == 'purchase':
         # update purchase history
-        df_purchase = df_purchase.append(datai)
-        timestamp = datai['timestamp']
+        df_purchase = df_purchase.append(pd.Series([row[2], row[3], row[6], row[1]],index=index),ignore_index=True)
+        timestamp = row.timestamp
         timestamp = str(timestamp)
-        userid = datai['id']
-        amount = datai['amount']
+        userid = row.id
+        amount = row.amount
         mean, sd = Get_Mean_SD(userid)
         if mean != np.nan:
             mean_3sd = mean + (3*sd)
             if amount > mean_3sd:
-                f.write('"event_type":"{0:s}", "timestamp":"{1:s}", "id": "{2:.0f}", "amount": "{3:.2f}", "mean": "{4:.2f}", "sd": "{5:.2f}"\n'.format(event_type, timestamp, userid, amount, mean, sd))
+                f.write('{{"event_type":"{0:s}", "timestamp":"{1:s}", "id": "{2:.0f}", "amount": "{3:.2f}", "mean": "{4:.2f}", "sd": "{5:.2f}"}}\n'.format(event_type, timestamp, userid, amount, mean, sd))
     # update social network
     if event_type == 'befriend':
-        id1 = datai['id1']
-        id2 = datai['id2']
+        id1 = row.id1
+        id2 = row.id2
         G.add_edge(id1,id2)
     if event_type == 'unfriend':
-        id1 = datai['id1']
-        id2 = datai['id2']
+        id1 = row.id1
+        id2 = row.id2
         if G.has_edge(id1,id2):
             G.remove_edge(id1,id2)  
     
@@ -207,9 +205,4 @@ for i in range(0, len(df_stream)):
 # In[22]:
 
 f.close() 
-
-
-# In[ ]:
-
-
 
