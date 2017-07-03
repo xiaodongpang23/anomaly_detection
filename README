@@ -1,8 +1,13 @@
-# Libraries used
+The python code for this project is: 
+src/anomaly_detection.py
+
+Libraries used in the above code:
 
 import numpy as np
 import pandas as pd
 import networkx as nx
 import sys
 
+To run the code, type the following command line or ./run.sh:
+python ./src/anomaly_detection.py ./log_input/batch_log.json ./log_input/stream_log.json ./log_output/flagged_purchases.json
 
