@@ -1,4 +1,19 @@
+# The python code for this project is:
+src/anomaly_detection.py
 
+# Libraries used in the above code:
+import numpy as np
+import pandas as pd
+import networkx as nx
+import sys
+
+# Run the code
+python ./src/anomaly_detection.py ./log_input/batch_log.json ./log_input/stream_log.json ./log_output/flagged_purchases.json
+or
+./runs.sh
+
+
+# This is a project for Insight Data Engineering - Coding Challenge 
 
 # Challenge Summary
 
@@ -190,60 +205,3 @@ Your submission must pass at least the provided test in order to pass the coding
 
 Here are some common questions we've received. If you have additional questions, please email us at `cc@insightdataengineering.com` and we'll answer your questions as quickly as we can (during PST business hours), and update this FAQ.
 
-### How to calculate mean and standard deviation?
-
-For this challenge, an anomalous amount is defined as a value that exceeds `mean + (3*sd)`
-
-For simplicity, we can assume that the mean and standard deviation of the purchase amounts can be calculated based on the formulas below:
-
-<img src="./images/math.png" width="500">
-
-where N is the number of purchases and x is the amount.
-
-### Which Github link should I submit?
-You should submit the URL for the top-level root of your repository. For example, this repo would be submitted by copying the URL `https://github.com/InsightDataScience/anomaly_detection` into the appropriate field on the application. **Do NOT try to submit your coding challenge using a pull request**, which would make your source code publicly available.
-
-### Do I need a private Github repo?
-No, you may use a public repo, there is no need to purchase a private repo. You may also submit a link to a Bitbucket repo if you prefer.
-
-### May I use R, Matlab, or other analytics programming languages to solve the challenge?
-It's important that your implementation scales to handle large amounts of data. While many of our Fellows have experience with R and Matlab, applicants have found that these languages are unable to process data in a scalable fashion, so you must consider another language.
-
-### May I use distributed technologies like Hadoop or Spark?
-Your code will be tested on a single machine, so using these technologies will negatively impact your solution. We're not testing your knowledge on distributed computing, but rather on computer science fundamentals and software engineering best practices. 
-
-### What sort of system should I use to run my program on (Windows, Linux, Mac)?
-You may write your solution on any system, but your source code should be portable and work on all systems. Additionally, your `run.sh` must be able to run on either Unix or Linux, as that's the system that will be used for testing. Linux machines are the industry standard for most data engineering teams, so it is helpful to be familiar with this. If you're currently using Windows, we recommend using tools like Cygwin or Docker, or a free online IDE such as Cloud9.
-
-### How fast should my program run?
-While there are no strict performance guidelines to this coding challenge, we will consider the amount of time your program takes when grading the challenge. Therefore, you should design and develop your program in the optimal way (i.e. think about time and space complexity instead of trying to hit a specific run time value). 
-
-### Can I use pre-built packages, modules, or libraries?
-This coding challenge can be completed without any "exotic" packages. While you may use publicly available packages, modules, or libraries, you must document any dependencies in your accompanying README file. When we review your submission, we will download these libraries and attempt to run your program. If you do use a package, you should always ensure that the module you're using works efficiently for the specific use-case in the challenge, since many libraries are not designed for large amounts of data.
-
-### Will you email me if my code doesn't run?
-Unfortunately, we receive hundreds of submissions in a very short time and are unable to email individuals if their code doesn't compile or run. This is why it's so important to document any dependencies you have, as described in the previous question. We will do everything we can to properly test your code, but this requires good documentation. More so, we have provided a test suite so you can confirm that your directory structure and format are correct.
-
-### Can I use a database engine?
-This coding challenge can be completed without the use of a database. However, if you use one, it must be a publicly available one that can be easily installed with minimal configuration.
-
-### Do I need to use multi-threading?
-No, your solution doesn't necessarily need to include multi-threading - there are many solutions that don't require multiple threads/cores or any distributed systems, but instead use efficient data structures.
-
-### What should the format of the output be?
-In order to be tested correctly, you must use the format described above. You can ensure that you have the correct format by using the testing suite we've included. If you are still unable to get the correct format from the debugging messages in the suite, please email us at `cc@insightdataengineering.com`.
-
-### Should I check if the files in the input directory are text files or non-text files(binary)?
-No, for simplicity you may assume that all of the files in the input directory are text files, with the format as described above.
-
-### Can I use an IDE like Eclipse or IntelliJ to write my program?
-Yes, you can use whatever tools you want - as long as your `run.sh` script correctly runs the relevant target files and creates the `flagged_purchases.json` file in the `log_output` directory.
-
-### What should be in the log_input directory?
-You can put any text file you want in the directory since our testing suite will replace it. Indeed, using your own input files would be quite useful for testing. The file size limit on Github is 100 MB so you won't be able to include the larger sample input files in your `log_input` directory.
-
-### How will the coding challenge be evaluated?
-Generally, we will evaluate your coding challenge with a testing suite that provides a variety of inputs and checks the corresponding output. This suite will attempt to use your `run.sh` and is fairly tolerant of different runtime environments. Of course, there are many aspects (e.g. clean code, documentation) that cannot be tested by our suite, so each submission will also be reviewed manually by a data engineer.
-
-### How long will it take for me to hear back from you about my submission?
-We receive hundreds of submissions and try to evaluate them all in a timely manner. We try to get back to all applicants **within two or three weeks** of submission, but if you have a specific deadline that requires expedited review, please email us at `cc@insightdataengineering.com`.
