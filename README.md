@@ -1,20 +1,27 @@
-# The python code for this project is:
+## The python code for this project is:
 src/anomaly_detection.py
 
-# Libraries used in the above code:
+## Libraries used in the above code:
 import numpy as np
+
 import pandas as pd
+
 import networkx as nx
+
 import sys
 
-# Run the code
+## Run the code
 python ./src/anomaly_detection.py ./log_input/batch_log.json ./log_input/stream_log.json ./log_output/flagged_purchases.json
+
 or
+
 ./runs.sh
 
 
-# This is a project for Insight Data Engineering - Coding Challenge 
 
+
+## This is a project for Insight Data Engineering - Coding Challenge 
+----------------------------------------------------------------------------
 # Challenge Summary
 
 Imagine you're at an e-commerce company, Market-ter, that also has a social network. In addition to shopping, users can see which items their friends are buying, and are influenced by the purchases within their network. 
