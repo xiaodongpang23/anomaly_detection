@@ -1,13 +1,3 @@
-# Table of Contents
-1. [Challenge Summary](README.md#challenge-summary)
-2. [Details of Implementation](README.md#details-of-implementation)
-3. [Anomalous Purchases](README.md#anomalous-purchases)
-4. [Sample Data](README.md#sample-data)
-5. [Writing Clean, Scalable, and Well-tested Code](README.md#writing-clean-scalable-and-well-tested-code)
-6. [Repo Directory Structure](README.md#repo-directory-structure)
-7. [Testing your Directory Structure and Output Format](README.md#testing-your-directory-structure-and-output-format)
-8. [Instructions to Submit your Solution](README.md#instructions-to-submit-your-solution)
-9. [FAQ](README.md#faq)
 
 
 # Challenge Summary
