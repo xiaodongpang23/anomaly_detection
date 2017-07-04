@@ -12,6 +12,9 @@ def main(argv):
 	#batchlogfile = 'sample_dataset/batch_log.json'
 	batchlogfile = sys.argv[1]
 	df_batch = pd.read_json(batchlogfile, lines=True)
+
+	index_purchase = ['event_type','id','timestamp','amount']
+	index_friend = ['event_type','id1','id2','timestamp']
 	
 	# Read D and T
 	df_DT=df_batch[df_batch['D'].notnull()]
@@ -29,14 +32,16 @@ def main(argv):
 	
 	
 	df_purchase = df_batch[df_batch['event_type']=='purchase']
-	df_purchase = df_purchase[['event_type','id','timestamp','amount']]
+	df_purchase = df_purchase[index_purchase]
+	df_purchase = df_purchase.dropna(how='any')
 	# If sort on the timestamp is needed, commentout the following line
 	# df_purchase = df_purchase.sort_values('timestamp')
 	#df_purchase.shape
 	
 	
 	df_friend=df_batch[(df_batch['event_type']=='befriend') | (df_batch['event_type']=='unfriend')]
-	df_friend=df_friend[['event_type','id1','id2','timestamp']]
+	df_friend=df_friend[index_friend]
+	df_friend=df_friend.dropna(how='any')
 	# If sort on the timestamp is needed, commentout the following line
 	#df_friend=df_friend.sort_values('timestamp')
 	#df_friend.shape
@@ -45,9 +50,7 @@ def main(argv):
 	# Define a network G
 	G = nx.Graph()
 	
-	id1list = df_friend.id1.tolist()
-	id2list = df_friend.id2.tolist()
-	idlist = set(id1list + id2list)
+	idlist = set(df_purchase.id.tolist())
 	G.add_nodes_from(idlist)
 	#len(list(G.nodes()))
 	
@@ -111,9 +114,9 @@ def main(argv):
 	for i in range(0, len(df_stream)):
 		datai = df_stream.iloc[i]
 		event_type = datai['event_type']
-		if event_type == 'purchase':
+		if (event_type == 'purchase') & (not datai[index_purchase].isnull().any()):
 			# update purchase history
-			df_purchase = df_purchase.append(datai[['event_type','id','timestamp','amount']])
+			df_purchase = df_purchase.append(datai[index_purchase])
 			timestamp = datai['timestamp']
 			timestamp = str(timestamp)
 			userid = datai['id']
@@ -124,13 +127,13 @@ def main(argv):
 				if amount > mean_3sd:
 					f.write('{{"event_type":"{0:s}", "timestamp":"{1:s}", "id": "{2:.0f}", "amount": "{3:.2f}", "mean": "{4:.2f}", "sd": "{5:.2f}"}}\n'.format(event_type, timestamp, userid, amount, mean, sd))
 		# update social network
-		if event_type == 'befriend':
-			df_friend=df_friend.append(datai[['event_type','id1','id2','timestamp']])
+		if (event_type == 'befriend') & (not datai[index_friend].isnull().any()):
+			df_friend=df_friend.append(datai[index_friend])
 			id1 = datai['id1']
 			id2 = datai['id2']
 			G.add_edge(id1,id2)
-		if event_type == 'unfriend':
-			df_friend=df_friend.append(datai[['event_type','id1','id2','timestamp']])
+		if (event_type == 'unfriend') & (not datai[index_friend].isnull().any()):
+			df_friend=df_friend.append(datai[index_friend])
 			id1 = datai['id1']
 			id2 = datai['id2']
 			if G.has_edge(id1,id2):
