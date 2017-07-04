@@ -33,8 +33,6 @@ make test_anomaly_detection
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 
-## This is a project for Insight Data Engineering - Coding Challenge 
-
 # Challenge Summary
 
 Imagine you're at an e-commerce company, Market-ter, that also has a social network. In addition to shopping, users can see which items their friends are buying, and are influenced by the purchases within their network. 
