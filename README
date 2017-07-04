@@ -13,3 +13,9 @@ import sys
 To run the code, type the following command line or ./run.sh:
 python ./src/anomaly_detection.py ./log_input/batch_log.json ./log_input/stream_log.json ./log_output/flagged_purchases.json
 
+To test insight_testsuite/test_add_edges/test_Add_edges.py:
+make test_Add_edges
+
+To test ./src/anomaly_detection.py:
+make test_anomaly_detection
+
