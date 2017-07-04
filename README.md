@@ -20,6 +20,15 @@ or
 ./run.sh
 
 
+## Unit test
+
+To test insight_testsuite/test_add_edges/test_Add_edges.py:
+
+make test_Add_edges
+
+To test ./src/anomaly_detection.py:
+
+make test_anomaly_detection
 
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
