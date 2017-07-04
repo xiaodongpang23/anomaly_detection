@@ -7,26 +7,32 @@ import sys
 batchlogfile = 'sample_dataset/batch_log.json'
 df_batch = pd.read_json(batchlogfile, lines=True)
 
+index_purchase = ['event_type','id','timestamp','amount']
+index_friend = ['event_type','id1','id2','timestamp']
+
 df_purchase = df_batch[df_batch['event_type']=='purchase']
-df_purchase = df_purchase[['event_type','id','timestamp','amount']]
+df_purchase = df_purchase[index_purchase]
+df_purchase = df_purchase.dropna(how='any')
 # If sort on the timestamp is needed, commentout the following line
 # df_purchase = df_purchase.sort_values('timestamp')
 #df_purchase.shape
 
-df_friend=df_batch[(df_batch['event_type']=='befriend') | (df_batch['event_type']=='unfriend')]
-df_friend=df_friend[['event_type','id1','id2','timestamp']]
+df_friend = df_batch[(df_batch['event_type']=='befriend') | (df_batch['event_type']=='unfriend')]
+df_friend = df_friend[index_friend]
+df_friend = df_friend.dropna(how='any') 
 # If sort on the timestamp is needed, commentout the following line
 #df_friend=df_friend.sort_values('timestamp')
 #df_friend.shape
 
 G = nx.Graph()
 
-id1list = df_friend.id1.tolist()
-id2list = df_friend.id2.tolist()
-id3list = df_purchase.id.tolist()
-idlist = set(id1list + id2list + id3list)
-G.add_nodes_from(idlist)
-#len(list(G.nodes()))
+def Add_nodes(data):
+	idlist = data.id.tolist()
+	idlist = set(idlist)
+	G.add_nodes_from(idlist)
+	#len(list(G.nodes()))
+
+
 
 def Add_edges(data):
     for row in data.itertuples():
@@ -40,5 +46,9 @@ def Add_edges(data):
                 G.remove_edge(id10,id20)  
 								
 def test_Add_edges():
-		Add_edges(df_friend)
+	Add_edges(df_friend)
 	
+
+
+def test_Add_nodes():
+	Add_nodes(df_purchase) 
