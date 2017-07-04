@@ -109,7 +109,7 @@ def main(argv):
 	#flaggedfile = 'log_output/flagged_purchases.json'
 	flaggedfile = sys.argv[3]
 	f = open(flaggedfile, 'w')
-	
+
 	# Determine whether a purchase is anomalous; update purchase history; update social network
 	for i in range(0, len(df_stream)):
 		datai = df_stream.iloc[i]
@@ -120,6 +120,8 @@ def main(argv):
 			timestamp = datai['timestamp']
 			timestamp = str(timestamp)
 			userid = datai['id']
+			if (not G.has_node(userid)):
+				G.add_node(userid)	
 			amount = datai['amount']
 			mean, sd = Get_Mean_SD(userid)
 			if mean != np.nan:
